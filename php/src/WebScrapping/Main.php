@@ -16,6 +16,15 @@ class Main {
 
     $data = (new Scrapper())->scrap($dom);
 
+    $xpath = new \DomXPath($dom);
+    $nodeList = $xpath->query("//div[@class='volume-info']");
+    $node = $nodeList->item(0);
+    $conteudoDaDiv = $node->nodeValue;
+
+    print("\n\n\n\n\n\n\n\n");
+    print_r($conteudoDaDiv);
+    print("\n\n\n\n\n\n\n\n");
+
     // Write your logic to save the output file bellow.
     print_r($data);
   }
