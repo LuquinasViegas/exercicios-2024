@@ -48,7 +48,7 @@ class Scrapper {
         // Cria array individual para cada autor
         $authorArray = array();
         // Condição necessária pois no ID 137475 após RAFAEL ALVES DE ANDRADE existe um campo vazio
-        if($author->nodeValue !="") {
+        if($author->nodeValue !=" ;") {
           // Retorna o valor absoluto do nó
           $authorName = str_replace(";","", $author->nodeValue);
           // Retorna o valor do atributo 'title'
