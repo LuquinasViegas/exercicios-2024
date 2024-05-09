@@ -54,9 +54,7 @@ class Scrapper {
         $authorName = str_replace(";","", $author->nodeValue);
         // Retorna o valor do atributo 'title'
         $authorInstitution = $author->attributes["title"]->nodeValue;
-        $authorArray['name'] = $authorName;
-        $authorArray['institution'] = $authorInstitution;
-        // Inseree no array individual nome e intituição do autor
+        // Insere no array individual nome e intituição do autor
         array_push($objAuthorsArray, new Person($authorName, $authorInstitution));
         }
 
