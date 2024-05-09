@@ -20,14 +20,14 @@ class Scrapper {
     //  Retorna toda a classe que contem 'paper-card'
     $paperCards = $xpath->query("//a[contains(@class,'paper-card')]");
 
-    $objPaperArray = array();
+    $objPapersArray = array();
 
     // Para cada 'a.paper-card' vai localizar somente 'paper'
     foreach($paperCards as $paper) {
       $paperArray = array();
 
       // Retorna o campo específico de cada paper(id,title,type)
-      $id = $xpath->query(".//followwing::div[contains(@class,'volume-info')]", $paper);
+      $id = $xpath->query(".//following::div[contains(@class,'volume-info')]", $paper);
       $title = $xpath->query(".//h4[contains(@class,'paper-title')]", $paper);
       $type = $xpath->query(".//following::div[contains(@class,'tags')]", $paper);
 
@@ -47,7 +47,6 @@ class Scrapper {
       foreach($authors as $author) {
         // Cria array individual para cada autor
         $authorArray = array();
-
         // Condição necessária pois no ID 137457 após RAFAEL ALVES DE ANDRADE existe um campo vazio
         if($author->nodeValue !="") {
         // Retorna o valor absoluto do nó
@@ -60,9 +59,23 @@ class Scrapper {
 
       }
 
+      $paperArray['authors'] = $authorsArray;
+
+      $objPaper = new Paper(
+        $id[0]->nodeValue,
+        $title[0]->nodeValue,
+        $type[0]->nodeValue,
+        $objAuthorsArray
+      );
+
+      array_push($objPapersArray, $objPaper);
     }
+
+
+
+
     return [
-      
+      $objPapersArray,
     ];
   }
 

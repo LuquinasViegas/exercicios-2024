@@ -20,9 +20,9 @@ class Person {
   /**
    * Builder.
    */
-  public function __construct($name, $institution) {
-    $this->name = $name;
-    $this->institution = $institution;
+  public function __construct($authorName, $authorInstitution) {
+    $this->name = $authorName;
+    $this->institution = $authorInstitution;
   }
 
 }
