@@ -47,19 +47,17 @@ class Scrapper {
       foreach($authors as $author) {
         // Cria array individual para cada autor
         $authorArray = array();
-        // Condição necessária pois no ID 137457 após RAFAEL ALVES DE ANDRADE existe um campo vazio
+        // Condição necessária pois no ID 137475 após RAFAEL ALVES DE ANDRADE existe um campo vazio
         if($author->nodeValue !="") {
-        // Retorna o valor absoluto do nó
-        $authorName = str_replace(";","", $author->nodeValue);
-        // Retorna o valor do atributo 'title'
-        $authorInstitution = $author->attributes["title"]->nodeValue;
-        // Insere no array individual nome e intituição do autor
-        array_push($objAuthorsArray, new Person($authorName, $authorInstitution));
+          // Retorna o valor absoluto do nó
+          $authorName = str_replace(";","", $author->nodeValue);
+          // Retorna o valor do atributo 'title'
+          $authorInstitution = $author->attributes["title"]->nodeValue;
+          // Insere no array individual nome e intituição do autor
+          array_push($objAuthorsArray, new Person($authorName, $authorInstitution));
         }
 
       }
-
-      $paperArray['authors'] = $authorsArray;
 
       $objPaper = new Paper(
         $id[0]->nodeValue,
