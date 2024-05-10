@@ -23,8 +23,8 @@ class Scrapper {
     $objPapersArray = [];
 
     // Para cada 'a.paper-card' vai localizar somente 'paper'.
-    foreach($paperCards as $paper) {
-      
+    foreach ($paperCards as $paper) {
+
       // Retorna o campo específico de cada paper 'id,title,type'.
       $id = $xpath->query(".//following::div[contains(@class,'volume-info')]", $paper);
       $title = $xpath->query(".//h4[contains(@class,'paper-title')]", $paper);
@@ -36,20 +36,20 @@ class Scrapper {
 
       // Retorna a div da lista de autores 'div.authors' do Paper.
       $authorsDiv = $xpath->query(".//following::div[contains(@class,'authors')]", $paper);
-    
+
       // Para cada 'span' em 'div.authors'.
       $authors = $xpath->query(".//span", $authorsDiv[0]);
 
       // Cria array de objetos de autores.
-      $objAuthorsArray = array();
-      foreach($authors as $author) {
+      $objAuthorsArray = [];
+      foreach ($authors as $author) {
         // Cria array individual para cada autor.
-        $authorArray = array();
-        // Condição necessária pois no ID 137475 após RAFAEL ALVES DE ANDRADE existe um campo vazio.
-        if($author->nodeValue !=" ;") {
+        // Condição necessária pois no ID 137475 após. 
+        // RAFAEL ALVES DE ANDRADE existe um campo vazio.
+        if($author->nodeValue != " ;") {
           // Retorna o valor absoluto do nó.
           $authorName = str_replace(";","", $author->nodeValue);
-          // Retorna o valor do atributo 'title'
+          // Retorna o valor do atributo 'title'.
           $authorInstitution = $author->attributes["title"]->nodeValue;
           // Insere no array individual nome e intituição do autor.
           array_push($objAuthorsArray, new Person($authorName, $authorInstitution));
@@ -66,11 +66,6 @@ class Scrapper {
 
       array_push($objPapersArray, $objPaper);
     }
-
-
-
-
     return $objPapersArray;
   }
-
 }
