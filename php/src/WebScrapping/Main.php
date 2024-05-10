@@ -17,10 +17,60 @@ class Main {
     $data = (new Scrapper())->scrap($dom);
 
     // Write your logic to save the output file bellow.
-    print("\n\n\n\n\n\n\n\n");
+    // print_r($data);
+    // Define o diretório e nome do arquivo a ser criado.
+    $filePath = __DIR__ . '/planilha.xlsx';
 
-    print_r($data);
+    // Cria um objeto para escrever planilha XLSX e abre o arquivo.
+    $writer = WriterEntityFactory::createXLSXWriter();
+    $writer->openToFile($filePath);
 
-    print("\n\n\n\n\n\n\n\n");
+    // Define estilos da primeira linha e dos dados.
+    $firstRowStyle = (new StyleBuilder())
+      ->setFonteName('Arial')
+      ->setFonteSize('11')
+      ->setFontBold('')
+      ->build();
+
+    $style = (new StyleBuilder())
+      ->setFontName('Arial')
+      ->setFontSize('11')
+      ->build();
+
+    // Define texto cabeçalho (1 linha)
+    $firstRow = ["id", "title", "type"];
+    // Como a maior quantidade de autor é 16, escreve 16x.
+    for ($x =1; $x <=16; $x++){
+      array_push($firstRow, "Author" . $x, "Author" . $x . "Institution");
+    }
+    // Adciona primira linha a planilha
+    $writer->addRow(
+      WriterEntityFactory::createRowFromArray($firstRow, $firstRowStyle)
+    );
+
+    // Para cada dado retornado da função 'scrap()'
+    foreach ($data as $paper) {
+      // Prepara um array para ser inserido nas linhas seguintes.
+      $newRow = [
+        $paper->id,
+        $paper->title,
+        $paper->type,
+      ];
+      // Para cada autor do paper adciona seu nome e instituição.
+      foreach ($paper->authors as $author) {
+        array_push($newRow, $author->name);
+        array_push($newRow, $author->instituition);
+      }
+
+      // Adciona a linha na planilha.
+      $writer->addRow(
+        WriterEntityFactory::createRowFromArray($newRow, $style)
+      );
+    }
+
+    // Encerra conexão com o arquivo.
+    $Writer->close();
+
   }
+
 }
