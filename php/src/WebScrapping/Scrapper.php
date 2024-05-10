@@ -17,7 +17,7 @@ class Scrapper {
 
     $xpath = new \DomXPath($dom);
 
-    //  Retorna toda a classe que contem 'paper-card'
+    // Retorna toda a classe que contem 'paper-card'
     $paperCards = $xpath->query("//a[contains(@class,'paper-card')]");
 
     $objPapersArray = array();
@@ -72,9 +72,7 @@ class Scrapper {
 
 
 
-    return [
-      $objPapersArray,
-    ];
+    return $objPapersArray;
   }
 
 }
