@@ -2,7 +2,7 @@
 
 namespace Chuva\Php\WebScrapping;
 
-// Adciona as bibliotecas ao código
+// Adciona as bibliotecas ao código.
 use Box\Spout\Writer\Common\Creator\Style\StyleBuilder;
 use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
 
@@ -42,12 +42,12 @@ class Main {
       ->build();
 
     // Define texto cabeçalho (1 linha)
-    $firstRow = ["id", "title", "type"];
+    $firstRow =["id", "title", "type"];
     // Como a maior quantidade de autor é 16, escreve 16x.
     for ($x =1; $x <=16; $x++) {
       array_push($firstRow, "Author " . $x, "Author " . $x . " Institution");
     }
-    // Adciona primira linha a planilha
+    // Adciona primira linha a planilha.
     $writer->addRow(
       WriterEntityFactory::createRowFromArray($firstRow, $firstRowStyle)
     );
