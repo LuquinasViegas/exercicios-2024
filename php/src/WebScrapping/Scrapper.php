@@ -66,9 +66,9 @@ class Scrapper {
 
       array_push($objPapersArray, $objPaper);
     }
-    return [ 
+    return [
       $objPapersArray,
     ];
   }
-  
+
 }
