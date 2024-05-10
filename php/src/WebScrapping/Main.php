@@ -21,7 +21,7 @@ class Main {
     $data = (new Scrapper())->scrap($dom);
 
     // Write your logic to save the output file bellow.
-    // print_r($data);
+     print_r($data);
     // Define o diretório e nome do arquivo a ser criado.
     $filePath = __DIR__ . '/planilha.xlsx';
 
@@ -63,7 +63,7 @@ class Main {
       // Para cada autor do paper adciona seu nome e instituição.
       foreach ($paper->authors as $author) {
         array_push($newRow, $author->name);
-        array_push($newRow, $author->instituition);
+        array_push($newRow, $author->institution);
       }
 
       // Adciona a linha na planilha.
